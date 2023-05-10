@@ -13,12 +13,13 @@ ui <- fluidPage(
       ), 
       
       radioButtons(
-       "sim_type", 
-       "Choose draft order type", 
+       "sim_type",
+       "Choose draft order type",
        choices = c(
-         "Simulate lottery", "Use Tankathon order"
+         #"Simulate lottery", 
+         "Use Tankathon order"
        )
-      ), 
+      ),
       
       checkboxGroupInput(
        "used_sources", 
@@ -31,7 +32,6 @@ ui <- fluidPage(
        "run_sim", 
        "Start"
       )
-      
     ), 
     
     mainPanel(
