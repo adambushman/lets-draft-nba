@@ -1,0 +1,32 @@
+#teams-select .form-select {
+    border: 1px solid var(--bs-primary);
+}
+
+#teams-select .dselect-placeholder  {
+    color: var(--bs-primary);
+}
+
+.mult-select-tag .btn-container {
+    border-left: 1px solid var(--bs-primary);
+}
+
+.mult-select-tag svg {
+    stroke: var(--bs-primary);
+}
+
+.mult-select-tag .item-container {
+    background: #FFF;
+    border: 1px solid var(--bs-secondary)
+}
+
+.drawer .input {
+    width:100%;
+}
+
+.mult-select-tag .item-container svg {
+    stroke: var(--bs-secondary);
+}
+
+.mult-select-tag .item-label {
+    color: var(--bs-secondary);
+}
