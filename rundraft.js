@@ -26,4 +26,12 @@ class runDraft {
     setTeamData(data) {
         this.team_data = data;
     }
+
+    setProbBoard(data) {
+        this.prob_board = data;
+    }
+
+    setMaxRank(data) {
+        this.max_rank = data;
+    }
 }

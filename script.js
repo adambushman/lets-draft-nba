@@ -13,10 +13,10 @@ function sample(x, n, replace, prob) {
 
 // Looping functions
 
-function simNextPicks(prob_board, max_rank) {
+function simNextPicks() {
     while(mydraft.next_pick <= mydraft.format & !mydraft.teams.includes(draft_order[mydraft.next_pick - 1])) {
         // Remove already picked players
-        let curr_pos = prob_board[mydraft.next_pick - 1];
+        let curr_pos = mydraft.prob_board[mydraft.next_pick - 1];
         let available = aq.table({players: curr_pos.players, probs: curr_pos.probabilities})
             .filter(aq.escape(d => !mydraft.confirmed.includes(d.players)))
             .objects();
@@ -54,13 +54,10 @@ function simNextPicks(prob_board, max_rank) {
     d3.select("#modal-pick-no").text(mydraft.next_pick);
 
     // Update the players to select
-    let remaining = aq.from(max_rank)
+    let remaining = aq.from(mydraft.max_rank)
         .filter(aq.escape(d => !mydraft.confirmed.includes(d.Player)))
         .filter(d => d.Player != '')
         .objects();
-
-    console.log(max_rank);
-    console.log(remaining);
     
     pushSelections(remaining);
 
@@ -137,9 +134,12 @@ function startDraft() {
                 .objects();
 
             // console.log(prob_board);
-            console.log(max_rank);
+            // console.log(max_rank);
 
-            simNextPicks(prob_board, max_rank);
+            mydraft.setProbBoard(prob_board);
+            mydraft.setMaxRank(max_rank);
+
+            simNextPicks();
         
         })
     })
