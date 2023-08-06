@@ -198,13 +198,12 @@
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal" id="exampleModal">
+        <!-- User Select Modal -->
+        <div class="modal fade" id="userSelectModal" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header border-bottom pb-2">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">You're on the clock at #<span id="modal-pick-no">8</span>!</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5" id="userSelectModalLabel">You're on the clock at #<span id="modal-pick-no"></span>!</h1>
                     </div>
                     <div class="modal-body">
                         <div class="container">
@@ -222,6 +221,29 @@
                     </div>
                     <div class="modal-footer border-top pt-2">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="makeUserPick()">Draft</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Modal -->
+        <div class="modal fade" id="simulationModal" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom pb-2">
+                        <h1 class="modal-title fs-5" id="simulationModalLabel"><span id="sim-pick-no"></span></h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div id="sim-logo" class="col-5 text-center">
+                                    <img src="https://content.sportslogos.net/logos/6/3786/full/brooklyn_nets_logo_alternate_20138452.png" alt="" class="img-fluid">
+                                </div>
+                                <div class="col">
+                                    <h3><span id="sim-selection"></span></h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

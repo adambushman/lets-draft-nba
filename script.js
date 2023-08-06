@@ -11,6 +11,10 @@ function sample(x, n, replace, prob) {
     return(my_sample.columnArray("val"));
 }
 
+async function delayTime(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms * 1000));
+}
+  
 
 // Get max rank
 function getMaxRank(name) {
@@ -23,7 +27,8 @@ function getMaxRank(name) {
 
 // Looping functions
 
-function simNextPicks() {
+async function simNextPicks() {
+    let teamOnDeck;
     while(mydraft.next_pick <= mydraft.format & !mydraft.teams.includes(draft_order[mydraft.next_pick - 1])) {
         let comp_pick = [];
         let players = [];
@@ -60,6 +65,35 @@ function simNextPicks() {
         // Draft message
         console.log(`${draft_order[mydraft.next_pick - 1]} has selected ${comp_pick} at ${mydraft.next_pick}`);
         
+        teamOnDeck = mydraft.team_data.filter(d => {return d.abbreviation == draft_order[mydraft.next_pick - 1]})[0];
+
+        // Update the logo
+        let logo = d3.select("#sim-logo");
+        logo.select("img").remove();
+        logo.append("img").attr("src", teamOnDeck.logo).attr("class", "img-fluid");
+
+        // Update the text
+        d3.select("#sim-pick-no").text(
+            `With the #${mydraft.next_pick} pick:`
+        );
+        
+        // Update the selection
+        d3.select("#sim-selection").text(comp_pick[0]);
+
+        $(document).ready(function(){
+            $("#simulationModal").modal("show");
+        });
+
+        // DELAY for observation
+        await delayTime(filters.delay);
+
+        $(document).ready(function(){
+            $("#simulationModal").modal("hide");
+        });
+
+        // DELAY for observation
+        await delayTime(0.5);
+
         // Clean up picks
         mydraft.setConfirmedPick(comp_pick[0]);
         players.forEach(d => {
@@ -78,7 +112,7 @@ function simNextPicks() {
     // User draft message
     console.log(`You must pick for ${draft_order[mydraft.next_pick - 1]} at ${mydraft.next_pick}!!`);
 
-    let teamOnDeck = mydraft.team_data.filter(d => {return d.abbreviation == draft_order[mydraft.next_pick - 1]})[0];
+    teamOnDeck = mydraft.team_data.filter(d => {return d.abbreviation == draft_order[mydraft.next_pick - 1]})[0];
 
     // Update the logo
     let logo = d3.select("#team-logo");
@@ -97,7 +131,7 @@ function simNextPicks() {
     pushSelections(remaining);
 
     $(document).ready(function(){
-        $("#exampleModal").modal("show");
+        $("#userSelectModal").modal("show");
     });
 }
 
@@ -131,7 +165,7 @@ popSources();
 
 
 function startDraft() {
-    let filters = getFilters();
+    filters = getFilters();
     mydraft = new runDraft(filters.teams, filters.sources, filters.picks, filters.delay);
 
     // console.log(filters);

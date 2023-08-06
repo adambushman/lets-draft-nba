@@ -93,7 +93,7 @@ function getFilters() {
     else {
         delay_sec = 5;
     }
-
+    
     return {
         teams: Array.from(team_options).map((d) => { return d.innerText }), 
         sources: sources_filt, 
