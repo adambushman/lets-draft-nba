@@ -8,19 +8,33 @@ class runDraft {
 
         this.next_pick = 1;
         this.confirmed = [];
+        this.left_over = [];
 
         this.prob_board = [];
         this.max_rank = [];
         this.team_data = [];
     }
 
-    // Setters
     setNextPick() {
         this.next_pick += 1;
     }
 
     setConfirmedPick(name) {
         this.confirmed.push(name);
+    }
+
+    addLeftOver(name) {
+        let i = this.left_over.indexOf(name);
+        if(i == -1) {
+            this.left_over.push(name)
+        }
+    }
+
+    removeLeftOver(name) {
+        let i = this.left_over.indexOf(name);
+        if(i != -1) {
+            this.left_over.splice(i, 1);
+        }
     }
 
     setTeamData(data) {

@@ -11,28 +11,63 @@ function sample(x, n, replace, prob) {
     return(my_sample.columnArray("val"));
 }
 
+
+// Get max rank
+function getMaxRank(name) {
+    let df = aq.from(mydraft.max_rank)
+        .filter(aq.escape(d => d.Player == name))
+        .objects();
+    
+    return(df[0].maxx)
+}
+
 // Looping functions
 
 function simNextPicks() {
     while(mydraft.next_pick <= mydraft.format & !mydraft.teams.includes(draft_order[mydraft.next_pick - 1])) {
-        // Remove already picked players
-        let curr_pos = mydraft.prob_board[mydraft.next_pick - 1];
-        let available = aq.table({players: curr_pos.players, probs: curr_pos.probabilities})
-            .filter(aq.escape(d => !mydraft.confirmed.includes(d.players)))
-            .objects();
-
+        let comp_pick = [];
         let players = [];
-        let probabilities = [];
-        available.forEach(d => { 
-            players.push(d.players);
-            probabilities.push(d.probs);
-         });
 
-        let comp_pick = sample(players, 1, false, probabilities);
+        // Check for players who are at the end of their draft range
+        if(mydraft.left_over.length > 0) {
+            if(getMaxRank(mydraft.left_over[0]) >= (mydraft.next_pick - 1)) {
+                comp_pick = [mydraft.left_over[0]];
 
+                // Setup left over players
+                players = aq.from(mydraft.prob_board)
+                    .filter(aq.escape(d => d.pick == (mydraft.next_pick - 1)))
+                    .objects()[0]
+                    .players;
+            }
+        } 
+        if (comp_pick.length == 0) {
+            
+            // Remove already picked players
+            let curr_pos = mydraft.prob_board[mydraft.next_pick - 1];
+            let available = aq.table({players: curr_pos.players, probs: curr_pos.probabilities})
+                .filter(aq.escape(d => !mydraft.confirmed.includes(d.players)))
+                .objects();
+
+            let probabilities = [];
+            available.forEach(d => { 
+                players.push(d.players);
+                probabilities.push(d.probs);
+            });
+
+            comp_pick = sample(players, 1, false, probabilities);
+        }
+
+        // Draft message
         console.log(`${draft_order[mydraft.next_pick - 1]} has selected ${comp_pick} at ${mydraft.next_pick}`);
+        
+        // Clean up picks
         mydraft.setConfirmedPick(comp_pick[0]);
-
+        players.forEach(d => {
+            if(!mydraft.confirmed.includes(d)) {
+                mydraft.addLeftOver(d);
+            }
+        });
+        mydraft.removeLeftOver(comp_pick[0]);
         mydraft.setNextPick();
     }
 
@@ -40,7 +75,7 @@ function simNextPicks() {
         console.log("End of sim");
         return;
     }
-
+    // User draft message
     console.log(`You must pick for ${draft_order[mydraft.next_pick - 1]} at ${mydraft.next_pick}!!`);
 
     let teamOnDeck = mydraft.team_data.filter(d => {return d.abbreviation == draft_order[mydraft.next_pick - 1]})[0];
@@ -67,12 +102,26 @@ function simNextPicks() {
 }
 
 function makeUserPick() {
+    // Setup left over players
+    let players = aq.from(mydraft.prob_board)
+        .filter(aq.escape(d => d.pick == (mydraft.next_pick - 1)))
+        .objects()[0]
+        .players;
 
+    players.forEach(d => {
+        if(!mydraft.confirmed.includes(d)) {
+            mydraft.addLeftOver(d);
+        }
+    })
+
+    // Make the selection
     let dropdown = document.querySelector("#draft-players");
     let user_pick = dropdown.options[dropdown.selectedIndex].text;
     console.log(`You selected ${user_pick} on behalf of ${draft_order[mydraft.next_pick - 1]} at ${mydraft.next_pick}`);
 
+    // Clean up
     mydraft.setConfirmedPick(user_pick);
+    mydraft.removeLeftOver(user_pick);
     mydraft.setNextPick();
     simNextPicks();
 }
