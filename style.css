@@ -30,3 +30,12 @@
 .mult-select-tag .item-label {
     color: var(--bs-secondary);
 }
+
+.super-small {
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+}
+
+.finished-img {
+    max-height:1.5rem;
+}

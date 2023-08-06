@@ -106,8 +106,10 @@ let draft_order = [
     "SAS", "CHA", "POR", "HOU", "DET", "ORL", "IND", "WAS", "UTA", "DAL", "ORL", "OKC", "TOR", "NOP", "ATL", 
     "UTA", "LAL", "MIA", "GSW", "HOU", "BKN", "BKN", "POR", "SAC", "MEM", "IND", "CHA", "UTA", "IND", "LAC", 
     "DET", "IND", "SAS", "CHA", "BOS", "ORL", "OKC", "SAC", "CHA", "DEN", "CHA", "WAS", "POR", "SAS", "MEM", 
-    "ATL", "LAL", "LAC", "CLE", "OKC", "BKN", "PHX", "MIN", "SAC", "IND", "MEM", "WAS", "MIL"
-]
+    "ATL", "LAL", "LAC", "CLE", "OKC", "BKN", "PHX", "MIN", "SAC", "IND", "MEM", "WAS", "MIL", "CHI", "PHI"
+];
+
+let forfeits = [58, 59];
 
 d3.select("#draft-teams")
     .selectAll("option")

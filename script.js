@@ -32,6 +32,7 @@ async function simNextPicks() {
     while(mydraft.next_pick <= mydraft.format & !mydraft.teams.includes(draft_order[mydraft.next_pick - 1])) {
         let comp_pick = [];
         let players = [];
+        let forfeited = forfeits.includes(mydraft.next_pick - 1);
 
         // Check for players who are at the end of their draft range
         if(mydraft.left_over.length > 0) {
@@ -61,9 +62,13 @@ async function simNextPicks() {
 
             comp_pick = sample(players, 1, false, probabilities);
         }
-
+        console.log(forfeited);
         // Draft message
-        console.log(`${draft_order[mydraft.next_pick - 1]} has selected ${comp_pick} at ${mydraft.next_pick}`);
+        if(forfeited) {
+            console.log(`${draft_order[mydraft.next_pick - 1]} has forfeited ${mydraft.next_pick}`);
+        } else {
+            console.log(`${draft_order[mydraft.next_pick - 1]} has selected ${comp_pick} at ${mydraft.next_pick}`);
+        }
         
         teamOnDeck = mydraft.team_data.filter(d => {return d.abbreviation == draft_order[mydraft.next_pick - 1]})[0];
 
@@ -78,8 +83,12 @@ async function simNextPicks() {
         );
         
         // Update the selection
-        d3.select("#sim-selection").text(comp_pick[0]);
-
+        if(forfeited) {
+            d3.select("#sim-selection").text('[Forfeited]');
+        } else {
+            d3.select("#sim-selection").text(comp_pick[0]);
+        }
+        
         $(document).ready(function(){
             $("#simulationModal").modal("show");
         });
@@ -95,18 +104,23 @@ async function simNextPicks() {
         await delayTime(0.5);
 
         // Clean up picks
-        mydraft.setConfirmedPick(comp_pick[0]);
-        players.forEach(d => {
-            if(!mydraft.confirmed.includes(d)) {
-                mydraft.addLeftOver(d);
-            }
-        });
-        mydraft.removeLeftOver(comp_pick[0]);
+        if(forfeited) {
+            mydraft.setConfirmedPick('Forfeited');
+        }
+        if(!forfeited) {
+            mydraft.setConfirmedPick(comp_pick[0]);
+            players.forEach(d => {
+                if(!mydraft.confirmed.includes(d)) {
+                    mydraft.addLeftOver(d);
+                }
+            });
+            mydraft.removeLeftOver(comp_pick[0]);
+        }
         mydraft.setNextPick();
     }
 
     if(mydraft.next_pick > mydraft.format) {
-        console.log("End of sim");
+        displayEnd();
         return;
     }
     // User draft message
@@ -226,4 +240,80 @@ function startDraft() {
         
         })
     })
+}
+
+function displayEnd() {    
+    let picks = [];
+    for(let i = 1; i <= mydraft.confirmed.length; i++) {
+        picks.push(i);
+    }
+    let results = aq.table({
+            pick_no: picks,
+            abbreviation: draft_order.slice(0,filters.picks),
+            selection: mydraft.confirmed
+        })
+        .join(aq.from(mydraft.team_data), 'abbreviation');
+
+    let round1 = d3.select("#round-1");
+
+    round1.append('div')
+        .attr('class', 'col-6 list-group')
+        .selectAll('div')
+        .data(results.slice(0,15).objects())
+        .enter()
+        .append('div')
+        .attr('class', 'list-group-item py-1')
+        .html(d => {return genResultsHTML(d) });
+        
+    round1.append('div')
+        .attr('class', 'col-6 list-group')
+        .selectAll('div')
+        .data(results.slice(15,30).objects())
+        .enter()
+        .append('div')
+        .attr('class', 'list-group-item py-1')
+        .html(d => {return genResultsHTML(d) });
+
+    if(filters.picks == 60) {
+        let round2 = d3.select("#round-2");
+
+        round2.append('div')
+            .attr('class', 'col-6 list-group')
+            .selectAll('div')
+            .data(results.slice(30,45).objects())
+            .enter()
+            .append('div')
+            .attr('class', 'list-group-item py-1')
+            .html(d => {return genResultsHTML(d) });
+            
+        round2.append('div')
+            .attr('class', 'col-6 list-group')
+            .selectAll('div')
+            .data(results.slice(45,60).objects())
+            .enter()
+            .append('div')
+            .attr('class', 'list-group-item py-1')
+            .html(d => {return genResultsHTML(d) });
+    }
+
+
+    $(document).ready(function(){
+        $("#finishedModal").modal("show");
+    });
+}
+
+function genResultsHTML(data) {
+    return(`
+        <div class="row d-flex align-items-center">
+            <div class="col-1 m-0 p-0 pe-2 text-center super-small">
+                ${data.pick_no}
+            </div>
+            <div class="col-2 m-0 p-0 ps-2 text-center d-flex align-items-center">
+                <img class="finished-img" src="${data.logo}" alt="" class="img-fluid">
+            </div>
+            <div class="col-9 m-0 p-0 ps-2 super-small">
+                ${data.selection}
+            </div>
+        </div>
+`)
 }
