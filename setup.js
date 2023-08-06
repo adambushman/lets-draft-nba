@@ -87,13 +87,13 @@ function getFilters() {
     if(delay_filt[0] == "1 sec") {
         delay_sec = 1;
     } 
+    else if(delay_filt[0] == "2 sec") {
+        delay_sec = 2;
+    } 
     else if(delay_filt[0] == "3 sec") {
         delay_sec = 3;
-    } 
-    else {
-        delay_sec = 5;
     }
-    
+
     return {
         teams: Array.from(team_options).map((d) => { return d.innerText }), 
         sources: sources_filt, 
