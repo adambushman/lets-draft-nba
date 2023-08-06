@@ -25,6 +25,25 @@ function popSources() {
     })
 }
 
+function pushSelections(data) {
+    let section = d3.select('#draft-players');
+
+    section.selectAll('option').remove();
+
+    section.selectAll('option')
+        .data(data)
+        .enter()
+        .append('option')
+        .attr('value', (d,i) => { return i + 1 })
+        .text(d => { return d.Player });
+
+    section.insert('option', ':first-child')
+        .attr('value', 0)
+        .property('selected', true)
+        .property('disabled', true)
+        .text('Prospect');
+}
+
 function getFilters() {
     // Teams to draft for
     let team_options = document.getElementsByClassName("dselect-tag");
@@ -107,5 +126,4 @@ d3.select("#draft-teams")
 
 
 //<option value="" disabled selected>Select Teams</option>
-dselect(document.querySelector('#draft-teams'))
-dselect(document.querySelector('#draft-players'));
+dselect(document.querySelector('#draft-teams'));
