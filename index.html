@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- dSelect -->
@@ -30,49 +31,79 @@
 
 </head>
 <body>
-    <!-- Title, Header -->
-    <div class="container-fluid">
-        <div class="row text-center bg-dark">
-            <div class="display-3 fw-semibold text-white py-4">Let's Draft NBA</div>
-        </div>
-    </div>
+    <!-- Nav -->
+    <header>
+        <nav class="navbar text-bg-dark">
+            <div class="container-fluid">
+                <a href="#" class="navbar-bard">
+                    <img height="50" src="lets-draft-nba.png" alt="">
+                </a>
+                <div class="" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-bg-dark" href="#offcanvasAbout" data-bs-toggle="offcanvas" aria-controls="offcanvasAbout">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Settings -->
-    <div class="container">
-        <div class="container">
-            <div id="teams-select" class="row justify-content-center">
-                <div class="col-auto mt-3">
-                    <select id="draft-teams" class="form-select" data-dselect-placeholder="Select Teams" multiple></select>
+    <section>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasAbout" aria-labelledby="offcanvasAboutLabel">
+            <div class="offcanvas-header">
+                <h4 class="offcanvas-title" id="offcanvasAboutLabel">About</h4>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    <p><em>Let's Draft NBA</em> was born from observations during the 2023 NBA Draft cycle.</p>
+                    <p>Everyone knew Victor Wembanyama would go #1 overall yet simulation results continued to flood the internet where he could fall lower in the top 5.</p>
+                    <p>We aimed to solve this and other minor problems by orienting the logic and variance of the draft around industry expert perception.</p>
+                    <hr class="py-2">
+                    <p>Our logic dictates that a prospect has the range observed from experts.</p>
+                    <p>Should John Doe be ranked 5 through 10 by the industry, the simulation may pick him within that range with probabilities based on the distribution of rankings (i.e. if 9 industry boards rank him at 5 and 1 at 10, he's far more likely to go at 5, 6, etc)</p>
+                    <hr class="py-2">
+                    <p><em>Let's Draft NBA</em> was build by <a class="link" href="https://www.adambushman.dev/follow.html" target="_blank">Adam Bushman</p></a>
                 </div>
-                <div class="col-auto mt-3">
-                    <button class="btn btn-outline-primary h-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
-                        Adjust Settings
-                    </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Title, Header -->
+    <section class="main">
+        <div class="container mt-5">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-6">
+                    <img src="https://www.zagsblog.com/wp-content/uploads/2022/09/2020_03_31_nba_draft_1200x628.jpg" alt="" class="rounded img-fluid">
                 </div>
-                <div class="col-auto mt-3">
-                    <button class="btn btn-primary fw-bold h-100" onclick="startDraft()">
-                        Draft
-                    </button>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="display-4 fw-bold">Let's Draft NBA</div>
+                    <div class="h3"><span class="badge bg-dark">2024</span></div>
+                    <div class="h3 fs-4 fw-normal mt-2">
+                        Prepare for the NBA Draft with industry driven simulations
+                    </div>
+                    <div id="teams-select" class="row">
+                        <div class="col-auto mt-3">
+                            <select id="draft-teams" class="form-select" data-dselect-placeholder="Select Teams" multiple></select>
+                        </div>
+                        <div class="col-auto mt-3">
+                            <button class="btn btn-outline-primary h-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+                                Adjust Settings
+                            </button>
+                        </div>
+                        <div class="col-auto mt-3">
+                            <button class="btn btn-primary fw-bold h-100" onclick="startDraft()">
+                                Start Draft
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mt-3 justify-content-center">
                 <div class="col-md-8">
                     <div class="collapse" id="collapseSettings">
                         <div class="card card-body">
-                            <!--
-                            <div id="type" class="pb-4">
-                                <h6>Select type of simulation</h6>
-                                <hr class="my-1">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDraftType" id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">Simulate lottery</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioDraftType" id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">Use Tankathon Order</label>
-                                </div>
-                            </div>
-                            -->
                             <div class="row">
                                 <div id="sources" class="col-12 col-sm-6">
                                     <h6>Simulation sources</h6>
@@ -111,180 +142,255 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Content -->
+    <!-- Steps -->
+    <section class="steps">
+        <div class="container-fluid">
+            <div class="row text-bg-dark mt-5 py-5">
+                <div class="col">
+                    <div class="row text-center mb-3">
+                        <div class="h2">Get started in just 3 steps</div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4 col-md-3 px-1">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h2><div class="badge text-bg-primary rounded p-2"><i class="bi bi-hand-index-thumb"></i></div></h2>
+                                    <div class="h4 fs-6">1. Select Teams</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-3 px-1">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h2><div class="badge text-bg-primary rounded p-2"><i class="bi bi-gear"></i></div></h2>
+                                    <div class="h4 fs-6">2. Adjust Settings</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-3 px-1">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h2><div class="badge text-bg-primary rounded p-2"><i class="bi bi-check2"></i></div></h2>
+                                    <div class="h4 fs-6">3. Start Draft</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
         <div class="container">
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-8">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
-                                Team Order
-                            </button>
+            <div class="row justify-content-center py-5 ">
+                <div class="col-md-8 text-center">
+                    <div class="h2">Simulations Done Right</div>
+                </div>
+            </div>
+            <div class="row justify-content-center pb-5 d-flex align-items-center">
+                <div class="col-md-6 text-center">
+                    <div class="h3 fw-normal">#1 - Industry Driven Rankings</div>
+                    <p>Our draft simulator derives its rankings and variance from ten (10) industry draft sources, affording realistic results. You can even choose sources to omit.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-row justify-content-evenly">
+                        <div class="source-img-container">
+                            <img class="w-100" alt="The Athletic" src="data:image/png;base64,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">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100" alt="Yahoo Sports" src="https://yt3.googleusercontent.com/ytc/AOPolaTGaumUq6O8okwLLJ5on0Mu4ergjSEVj-IMrugRKw=s900-c-k-c0x00ffffff-no-rj">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100" alt="ESPN" src="https://yt3.googleusercontent.com/ytc/AOPolaQRP5bJqPOSKaf3huubbncQaihdeG4B0p49If48TLM=s900-c-k-c0x00ffffff-no-rj">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100" alt="NBA Big Board" src="https://m.media-amazon.com/images/I/41OTMzKKnxL.jpg">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100 border border-dark" alt="The Ringer" src="https://content.production.cdn.art19.com/images/41/ec/3a/44/41ec3a44-37f8-4378-9cb6-8e2027563858/d31d6c3628a592d9504336c9a9c8897fd64f24bead2d50445c23991f5e708368f9404a50c21db8b99e261078adb6e624cbfed6f12532fde267941984ffb7f090.jpeg">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-evenly pt-2">
+                        <div class="source-img-container">
+                            <img class="w-100" alt="No Ceilings" src="https://production.listennotes.com/podcasts/no-ceilings-nba-draft-no-ceilings-nba-draft-lreGBRjYmau-o1Z2SwdIqNu.1400x1400.jpg">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100" alt="Box and One" src="https://pbs.twimg.com/profile_images/1672744162624671747/ISma3VsO_400x400.jpg">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100 bg-dark" alt="Bleacher Report" src="https://static.wixstatic.com/media/2039aa_0b6796b398214a869eb6469e93ae7ccc~mv2.png/v1/fill/w_300,h_300,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/2039aa_0b6796b398214a869eb6469e93ae7ccc~mv2.png">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100" alt="Hoop Intellect" src="https://yt3.googleusercontent.com/x75B-tAR-gSFkuqfy8j16bet_UbfvrbrTLdqGHARqWxZG2ZmcAfHorrH4IoHVE_YsA-YlutKZ7Q=s900-c-k-c0x00ffffff-no-rj" alt="">
+                        </div>
+                        <div class="source-img-container">
+                            <img class="w-100 border border-dark" alt="Global Scouting" src="https://pbs.twimg.com/profile_images/1431681516430635018/2gHLW1_E_400x400.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center pb-2 pb-md-5 d-flex align-items-center">
+                <div class="col-md-6 order-2 order-md-1">
+                    <div class="d-flex flex-row justify-content-evenly">
+                        <div class="team-img-container">
+                            <img class="w-100" alt="The Athletic" src="https://a.espncdn.com/i/teamlogos/nba/500/atl.png">
+                        </div>
+                        <div class="team-img-container">
+                            <img class="w-100" alt="The Athletic" src="https://a.espncdn.com/i/teamlogos/nba/500/dal.png">
+                        </div>
+                        <div class="team-img-container">
+                            <img class="w-100" alt="The Athletic" src="https://a.espncdn.com/i/teamlogos/nba/500/mil.png">
+                        </div>
+                        <div class="team-img-container">
+                            <img class="w-100" alt="The Athletic" src="https://a.espncdn.com/i/teamlogos/nba/500/utah.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 order-1 order-md-2 text-center">
+                    <div class="h3 fw-normal">#2 - You Make the Picks</div>
+                    <p>Our draft simulator puts you in the drivers seat of as many team's draft as you'd like, offering great flexibility for mocks among friends.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center pb-3 pb-md-5 d-flex align-items-center">
+                <div class="col-md-6 text-center">
+                    <div class="h3 fw-normal">#3 - Customize the Experience</div>
+                    <p>Toggle the settings to craft your perfect draft. From how fast the simulation executes to the which rounds you're interested in.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="team-img-container position-relative">
+                            <i class="bi bi-stopwatch position-absolute top-50 start-50 translate-middle" style="font-size:6rem;"></i>
+                        </div>
+                        <div class="team-img-container position-relative">
+                            <i class="bi bi-2-circle position-absolute top-50 start-50 translate-middle" style="font-size:6rem;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center pb-5">
+                <div class="col-md-12 text-center">
+                    <hr>
+                    <a href="#"><h2 class="text-white mt-5"><span class="badge bg-primary">Start your Draft Now!</span></h1></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid text-bg-dark">
+            <div class="d-flex flex-row justify-content-between align-items-center py-4">
+                <div class="d-flex flex-column">
+                    <a href="#" class="navbar-bard">
+                        <img height="50" src="lets-draft-nba.png" alt="">
+                    </a>
+                    <small class="pt-3">Copyright &copy;<br>Let's Draft NBA</small>
+                </div>
+                <div class="" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-bg-dark" href="#offcanvasAbout" data-bs-toggle="offcanvas" aria-controls="offcanvasAbout">About</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
-                                Player Order
-                            </button>
+                        <li class="nav-item">
+                            <a class="nav-link text-bg-dark" href="#offcanvasAbout" data-bs-toggle="offcanvas" aria-controls="offcanvasAbout">About</a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr class="table-dark">
-                                        <td scope="col">Pick</td>
-                                        <td scope="col">Team</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td scope="col">1</td>
-                                        <td scope="col">Detroit Pistons</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">2</td>
-                                        <td scope="col">Houston Rockets</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">3</td>
-                                        <td scope="col">San Antonio Spurs</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">4</td>
-                                        <td scope="col">Charlotte Hornets</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">5</td>
-                                        <td scope="col">Portland Trailblazers</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                            <table id="player-order" class="table table-striped">
-                                <thead>
-                                    <tr class="table-dark">
-                                        <td scope="col">Player</td>
-                                        <td scope="col">Club</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td scope="col">Victor Wembanyama</td>
-                                        <td scope="col">Metropolitans92</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">Brandon Miller</td>
-                                        <td scope="col">Alabama</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">Scoot Henderson</td>
-                                        <td scope="col">G League Ignite</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">Jarace Walker</td>
-                                        <td scope="col">Houston</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col">Cam Whitmore</td>
-                                        <td scope="col">Villanova</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </footer>
 
-        <!-- User Select Modal -->
-        <div class="modal fade" id="userSelectModal" data-bs-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-bottom pb-2">
-                        <h1 class="modal-title fs-5" id="userSelectModalLabel">You're on the clock at #<span id="modal-pick-no"></span>!</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div id="team-logo" class="col-5 text-center">
-                                    <img src="https://content.sportslogos.net/logos/6/3786/full/brooklyn_nets_logo_alternate_20138452.png" alt="" class="img-fluid">
-                                </div>
-                            </div>
-                            <div id="user-pick" class="row justify-content-center mt-3">
-                                <select id="draft-players" class="form-select">
-                                    <option value="" disabled selected>Prospect</option>
-                                </select>
+    <!-- User Select Modal -->
+    <div class="modal fade" id="userSelectModal" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom pb-2">
+                    <h1 class="modal-title fs-5" id="userSelectModalLabel">You're on the clock at #<span id="modal-pick-no"></span>!</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div id="team-logo" class="col-5 text-center">
+                                <img src="https://content.sportslogos.net/logos/6/3786/full/brooklyn_nets_logo_alternate_20138452.png" alt="" class="img-fluid">
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer border-top pt-2">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="makeUserPick()">Draft</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Simulation Modal -->
-        <div class="modal fade" id="simulationModal" data-bs-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-bottom pb-2">
-                        <h1 class="modal-title fs-5" id="simulationModalLabel"><span id="sim-pick-no"></span></h1>
-                        <button class="btn-close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div id="sim-logo" class="col-5 text-center">
-                                    <img src="https://content.sportslogos.net/logos/6/3786/full/brooklyn_nets_logo_alternate_20138452.png" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-12">
-                                    <h3 class="text-center"><span id="sim-selection"></span></h3>
-                                </div>
-                            </div>
+                        <div id="user-pick" class="row justify-content-center mt-3">
+                            <select id="draft-players" class="form-select">
+                                <option value="" disabled selected>Prospect</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer border-top pt-2">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="makeUserPick()">Draft</button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Finished Sim Modal -->
-        <div class="modal fade" id="finishedModal">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                    <div class="modal-header border-bottom text-bg-dark pb-2">
-                        <h1 class="modal-title fs-5" id="finishedModalLabel">Simulation Results</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-
-                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-sm active" id="pills-r1-tab" data-bs-toggle="pill" data-bs-target="#pills-r1" type="button" role="tab" aria-controls="pills-r1" aria-selected="true">Round 1</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-sm" id="pills-r2-tab" data-bs-toggle="pill" data-bs-target="#pills-r2" type="button" role="tab" aria-controls="pills-r2" aria-selected="false">Round 2</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-r1" role="tabpanel" aria-labelledby="pills-r1-tab" tabindex="0">
-                                    <div id="round-1" class="row justify-content-center"></div>
-                                </div>
-                                <div class="tab-pane fade" id="pills-r2" role="tabpanel" aria-labelledby="pills-r2-tab" tabindex="0">
-                                    <div id="round-2" class="row justify-content-center"></div>
-                                </div>
+    <!-- Simulation Modal -->
+    <div class="modal fade" id="simulationModal" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom pb-2">
+                    <h1 class="modal-title fs-5" id="simulationModalLabel"><span id="sim-pick-no"></span></h1>
+                    <button class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div id="sim-logo" class="col-5 text-center">
+                                <img src="https://content.sportslogos.net/logos/6/3786/full/brooklyn_nets_logo_alternate_20138452.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="col-12">
+                                <h3 class="text-center"><span id="sim-selection"></span></h3>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer border-top pt-2">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Finished Sim Modal -->
+    <div class="modal fade" id="finishedModal">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header border-bottom text-bg-dark pb-2">
+                    <h1 class="modal-title fs-5" id="finishedModalLabel">Simulation Results</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link btn btn-sm active" id="pills-r1-tab" data-bs-toggle="pill" data-bs-target="#pills-r1" type="button" role="tab" aria-controls="pills-r1" aria-selected="true">Round 1</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link btn btn-sm" id="pills-r2-tab" data-bs-toggle="pill" data-bs-target="#pills-r2" type="button" role="tab" aria-controls="pills-r2" aria-selected="false">Round 2</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-r1" role="tabpanel" aria-labelledby="pills-r1-tab" tabindex="0">
+                                <div id="round-1" class="row justify-content-center"></div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-r2" role="tabpanel" aria-labelledby="pills-r2-tab" tabindex="0">
+                                <div id="round-2" class="row justify-content-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top pt-2">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="rundraft.js"></script>
     <script src="setup.js"></script>
     <script src="script.js"></script>
