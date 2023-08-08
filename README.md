@@ -20,7 +20,7 @@ Let's Draft NBA was built by [Adam Bushman](https://www.adambushman.dev/follow.h
 
 ## Build Details
 
-The application was largely build with vanilla HTML, CSS, and JavaScript. Three libraries in particular, however, were relied upon heavily: 
+The application was largely build with vanila HTML, CSS, and JavaScript. Three libraries in particular, however, were relied upon heavily: 
 
 *  Bootstrap CSS framework library for advanced styling
 *  D3 JavaScript library for dynamic DOM manipulation
