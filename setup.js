@@ -108,7 +108,10 @@ function getFilters() {
 let draft_order = [
     "CHA", "DET", "HOU", "ORL", "WAS", "UTA", "SAS", "IND", "CHI", "POR", 
     "OKC", "BKN", "TOR", "MIN", "ATL", "NYK", "SAC", "NOP", "CLE", "MEM", 
-    "MIA", "LAC", "DAL", "PHI", "GSW", "LAL", "PHX", "MIL", "BOX", "DEN"
+    "MIA", "LAC", "DAL", "PHI", "GSW", "LAL", "PHX", "MIL", "BOS", "DEN", 
+    "CHA", "DET", "HOU", "ORL", "WAS", "UTA", "SAS", "IND", "CHI", "POR", 
+    "OKC", "BKN", "TOR", "MIN", "ATL", "NYK", "SAC", "NOP", "CLE", "MEM", 
+    "MIA", "LAC", "DAL", "PHI", "GSW", "LAL", "PHX", "MIL", "BOS", "DEN"
 ];
 
 let forfeits = [53];
