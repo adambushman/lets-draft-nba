@@ -36,7 +36,7 @@ async function simNextPicks() {
 
         // Check for players who are at the end of their draft range
         if(mydraft.left_over.length > 0) {
-            if(getMaxRank(mydraft.left_over[0]) >= (mydraft.next_pick - 1)) {
+            if(getMaxRank(mydraft.left_over[0]) <= (mydraft.next_pick - 1)) {
                 comp_pick = [mydraft.left_over[0]];
 
                 // Setup left over players
@@ -47,7 +47,6 @@ async function simNextPicks() {
             }
         } 
         if (comp_pick.length == 0) {
-            
             // Remove already picked players
             let curr_pos = mydraft.prob_board[mydraft.next_pick - 1];
             let available = aq.table({players: curr_pos.players, probs: curr_pos.probabilities})
@@ -62,7 +61,7 @@ async function simNextPicks() {
 
             comp_pick = sample(players, 1, false, probabilities);
         }
-        console.log(forfeited);
+        //console.log(forfeited);
         // Draft message
         if(forfeited) {
             console.log(`${draft_order[mydraft.next_pick - 1]} has forfeited ${mydraft.next_pick}`);
@@ -181,6 +180,11 @@ popSources();
 function startDraft() {
     filters = getFilters();
     mydraft = new runDraft(filters.teams, filters.sources, filters.picks, filters.delay);
+
+    // Remove end
+
+    d3.select("#round-1").selectAll("*").remove();
+    d3.select("#round-2").selectAll("*").remove();
 
     // console.log(filters);
 
