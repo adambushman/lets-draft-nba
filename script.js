@@ -188,9 +188,9 @@ function startDraft() {
 
     // console.log(filters);
 
-    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/Current_Industry_Boards.csv', data => {
+    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/lets-draft-nba/Current_Industry_Boards.csv', data => {
 
-        d3.csv('team-reference.csv', teams => {
+        d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/lets-draft-nba/team-reference.csv', teams => {
             mydraft.setTeamData(teams);
 
             let df = aq.from(data)

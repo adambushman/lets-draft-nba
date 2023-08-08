@@ -1,4 +1,4 @@
-![Let's Draft NBA Banner](./lets-draft-nba-banner.png)
+![Let's Draft NBA Banner](./images/lets-draft-nba-banner.png)
 
 # Let's Draft NBA
 

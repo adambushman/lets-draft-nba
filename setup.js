@@ -1,6 +1,6 @@
 function popSources() {
 
-    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/Current_Industry_Boards.csv', data => {
+    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/lets-draft-nba/Current_Industry_Boards.csv', data => {
 
         let df = aq.from(data)
             .fold(
