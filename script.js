@@ -188,7 +188,7 @@ function startDraft() {
 
     // console.log(filters);
 
-    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/draft/2023_Industry_Boards.csv', data => {
+    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/Current_Industry_Boards.csv', data => {
 
         d3.csv('team-reference.csv', teams => {
             mydraft.setTeamData(teams);

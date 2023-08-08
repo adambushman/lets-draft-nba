@@ -1,6 +1,6 @@
 function popSources() {
 
-    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/draft/2023_Industry_Boards.csv', data => {
+    d3.csv('https://raw.githubusercontent.com/adambushman/basketball-data/master/_data/Current_Industry_Boards.csv', data => {
 
         let df = aq.from(data)
             .fold(
@@ -17,8 +17,11 @@ function popSources() {
             .attr('class', 'form-check')
             .html((d) => {
                 let source_trunc = (d).substring(0, (d).indexOf(" ")).toLowerCase();
+                let disabled_flag = d.includes('#') ? 'disabled' : '';
+                let checked_flag = d.includes('#') ? '' : 'checked';
+                console.log(d, disabled_flag)
                 return `
-                    <input class="form-check-input" type="checkbox" value="${source_trunc}" id="${source_trunc}" checked>
+                    <input class="form-check-input" type="checkbox" value="${source_trunc}" id="${source_trunc}" ${disabled_flag} ${checked_flag}>
                     <label class="form-check-label sourcename" for="${source_trunc}">${d}</label>
                 `
             })
@@ -103,13 +106,12 @@ function getFilters() {
 }
 
 let draft_order = [
-    "SAS", "CHA", "POR", "HOU", "DET", "ORL", "IND", "WAS", "UTA", "DAL", "ORL", "OKC", "TOR", "NOP", "ATL", 
-    "UTA", "LAL", "MIA", "GSW", "HOU", "BKN", "BKN", "POR", "SAC", "MEM", "IND", "CHA", "UTA", "IND", "LAC", 
-    "DET", "IND", "SAS", "CHA", "BOS", "ORL", "OKC", "SAC", "CHA", "DEN", "CHA", "WAS", "POR", "SAS", "MEM", 
-    "ATL", "LAL", "LAC", "CLE", "OKC", "BKN", "PHX", "MIN", "SAC", "IND", "MEM", "WAS", "MIL", "CHI", "PHI"
+    "CHA", "DET", "HOU", "ORL", "WAS", "UTA", "SAS", "IND", "CHI", "POR", 
+    "OKC", "BKN", "TOR", "MIN", "ATL", "NYK", "SAC", "NOP", "CLE", "MEM", 
+    "MIA", "LAC", "DAL", "PHI", "GSW", "LAL", "PHX", "MIL", "BOX", "DEN"
 ];
 
-let forfeits = [58, 59];
+let forfeits = [53];
 
 d3.select("#draft-teams")
     .selectAll("option")
