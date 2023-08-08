@@ -2,7 +2,7 @@
 
 # Let's Draft NBA
 
-An application for simulating the NBA draft based on industry rankings.
+An application for simulating the NBA draft based on industry rankings. [Give it a test drive](https://adambushman.github.io/lets-draft-nba/)!
 
 ## Description
 
